@@ -24,7 +24,7 @@ module.exports = opt => handler => async (req, res, ...restArgs) => {
   }
 
   if (isStruct(opt.query)) {
-    const query = url.parse(req.url, true).query
+    const { query } = url.parse(req.url, true)
     const [error] = opt.query.validate(query)
     if (error instanceof StructError) {
       return send(res, 400, error.message)
