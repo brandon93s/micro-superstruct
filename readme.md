@@ -10,6 +10,8 @@ yarn add micro-superstruct
 
 ## Usage
 
+micro-superstruct exports a validate function that allows you to create API validators from any `struct`:
+
 ```js
 const { struct } = require('superstruct')
 const { json, send } = require('micro')
@@ -33,6 +35,20 @@ const handler = async (req, res) => {
 
 // export validated service
 module.exports = validator(handler)
+```
+
+Requests that fail validation will return a 400 error along with a Superstruct validation message:
+
+```shell
+> #1 POST /
+
+{
+  name: 17
+}
+
+< #2 400 [+2ms]
+
+Expected a value of type `string` for `name` but received `17`.
 ```
 
 ## API
