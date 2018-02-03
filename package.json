@@ -1,7 +1,7 @@
 {
   "name": "micro-superstruct",
   "description": "A Superstruct wrapper for Micro to validate your request body and query parameters",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "main": "index.js",
   "author": "Brandon Smith",
   "license": "MIT",
