@@ -48,7 +48,7 @@ Requests that fail validation will return a 400 error along with a Superstruct v
 
 < #2 400 [+2ms]
 
-Expected a value of type `string` for `name` but received `17`.
+Error: Expected a value of type `string` for `name` but received `17`.
 ```
 
 ## API
