@@ -162,6 +162,6 @@ test('error on invalid input', async t => {
     })
   } catch (err) {
     t.is(err.statusCode, 500)
-    t.true(err.error.startsWith('micro-struct'))
+    t.true(err.error.startsWith('micro-superstruct'))
   }
 })

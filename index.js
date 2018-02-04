@@ -1,6 +1,6 @@
 'use strict'
 
-const { json, send } = require('micro')
+const { json, createError } = require('micro')
 const { StructError } = require('superstruct')
 const url = require('url')
 
@@ -12,14 +12,14 @@ module.exports = opt => handler => async (req, res, ...restArgs) => {
   }
 
   if (typeof opt !== 'object') {
-    return send(res, 500, `micro-struct: Parameter must be a \`Struct\` or object, not ${typeof opt}`)
+    throw createError(500, `micro-superstruct: Parameter must be a \`Struct\` or object, not ${typeof opt}`)
   }
 
   if (isStruct(opt.body)) {
     const body = await json(req)
     const [error] = opt.body.validate(body)
     if (error instanceof StructError) {
-      return send(res, 400, error.message)
+      throw createError(400, error.message, error)
     }
   }
 
@@ -27,7 +27,7 @@ module.exports = opt => handler => async (req, res, ...restArgs) => {
     const { query } = url.parse(req.url, true)
     const [error] = opt.query.validate(query)
     if (error instanceof StructError) {
-      return send(res, 400, error.message)
+      throw createError(400, error.message, error)
     }
   }
 
