@@ -39,17 +39,7 @@ module.exports = validator(handler)
 
 Requests that fail validation will return a 400 error along with a Superstruct validation message:
 
-```shell
-> #1 POST /
-
-{
-  name: 17
-}
-
-< #2 400 [+2ms]
-
-Error: Expected a value of type `string` for `name` but received `17`.
-```
+![Error](https://i.imgur.com/T6AlMwc.png)
 
 ## API
 
