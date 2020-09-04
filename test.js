@@ -93,7 +93,7 @@ test('error on invalid query string', async t => {
 	const router = micro(validate(handler))
 	const url = await listen(router)
 
-	const {response} = await t.throwsAsync(got.post(url, { json: {hello: 'world'}}).json())
+	const {response} = await t.throwsAsync(got.post(url, {json: {hello: 'world'}}).json())
 	t.is(response.statusCode, 400)
 	t.is(response.body, 'Expected a value of type `string` for `first` but received `undefined`.')
 })
