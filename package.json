@@ -7,7 +7,7 @@
   "license": "MIT",
   "repository": "brandon93s/micro-superstruct",
   "scripts": {
-    "test": "ava"
+    "test": "xo && ava"
   },
   "files": [
     "index.js"
@@ -23,23 +23,21 @@
   ],
   "peerDependencies": {
     "micro": ">=5.0.0",
-    "superstruct": "^0.5.0"
+    "superstruct": "^0.10.0"
   },
   "devDependencies": {
-    "ava": "^0.25.0",
-    "eslint": "^4.19.1",
-    "eslint-config-standard": "^11.0.0",
-    "eslint-plugin-import": "^2.10.0",
-    "eslint-plugin-node": "^6.0.1",
-    "eslint-plugin-promise": "^3.7.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "micro": "^9.1.4",
-    "request": "^2.85.0",
-    "request-promise": "^4.2.2",
-    "superstruct": "^0.5.2",
-    "test-listen": "^1.1.0"
+    "ava": "^3.12.1",
+    "got": "^11.6.0",
+    "micro": "^9.3.4",
+    "micro-dev": "^3.0.0",
+    "superstruct": "^0.10.12",
+    "test-listen": "^1.1.0",
+    "xo": "^0.33.1"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=12"
+  },
+  "xo": {
+    "semicolon": false
   }
 }

@@ -11,3 +11,7 @@ yarn-error.log*
 *.njsproj
 *.sln
 .vscode
+
+yarn.lock
+package-lock.json
+example.js

@@ -5,23 +5,23 @@
 ## Install
 
 ```shell
-yarn add micro-superstruct
+npm install micro-superstruct
 ```
 
 ## Usage
 
-micro-superstruct exports a validate function that allows you to create API validators from any `struct`:
+micro-superstruct exports a validate function that allows you to create API validators from any `Struct`:
 
 ```js
-const { struct } = require('superstruct')
-const { json, send } = require('micro')
+const {object, string, number} = require('superstruct')
+const {json, send} = require('micro')
 const validate = require('micro-superstruct')
 
-// define a Superstruct `struct`
-const Unicorn = struct({
-  name: 'string',
-  age: 'number',
-  color: 'string'
+// define a Superstruct `Struct`
+const Unicorn = object({
+  name: string(),
+  age: number(),
+  color: string()
 })
 
 // create a validator
@@ -39,7 +39,7 @@ module.exports = validator(handler)
 
 Requests that fail validation will return a 400 error along with a Superstruct validation message:
 
-![Error](https://i.imgur.com/T6AlMwc.png)
+![Error](demo.png)
 
 ## API
 
@@ -48,17 +48,20 @@ Requests that fail validation will return a 400 error along with a Superstruct v
 Returns a validator function that can be used to validate a Micro handler.
 
 #### config
+Type: `Struct | object`
 
-Config supports passing a `struct` or an object containing a `struct` for body and/or query validation. If a `struct` is passed directly, it will be used for body validation. If providing an object, both the body and query are optional:
+Passing a `Struct` directly will configure request body validation using the provided validator.
+
+Passing an `object` allows for validation of both the request body and query string. Both are optional.
 
 ```js
 // body validation
-validate(struct({}))
+validate(object({}))
 
 // body and/or query validation
 validate({
-  body: struct({}),
-  query: struct({})
+  body: object({}),
+  query: object({})
 })
 ```
 
