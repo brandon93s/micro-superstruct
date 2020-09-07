@@ -1,6 +1,6 @@
 # micro-superstruct [![Build Status](https://travis-ci.org/brandon93s/micro-superstruct.svg?branch=master)](https://travis-ci.org/brandon93s/micro-superstruct)
 
-> A [Superstruct](https://github.com/ianstormtaylor/superstruct) wrapper for [Micro](https://github.com/zeit/micro) to validate your request body and query parameters.
+> A [Superstruct](https://github.com/ianstormtaylor/superstruct) wrapper for [Micro](https://github.com/zeit/micro) to validate request body and query parameters.
 
 ## Install
 
@@ -63,6 +63,19 @@ validate({
   body: object({}),
   query: object({})
 })
+```
+
+## Request Properties
+
+micro-superstruct attaches validated `body` and/or `query` objects to the request object for use by the API handler:
+
+```js
+const validator = validate(Unicorn)
+
+const handler = async (req, res) => {
+  const {body, query} = req
+  send(res, 200, body)
+}
 ```
 
 ## License

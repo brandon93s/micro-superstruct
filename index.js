@@ -19,6 +19,8 @@ module.exports = opt => handler => async (request, response, ...restArgs) => {
 		if (error instanceof StructError) {
 			throw createError(400, error.message, error)
 		}
+
+		request.body = body
 	}
 
 	if (isStruct(opt.query)) {
@@ -28,6 +30,8 @@ module.exports = opt => handler => async (request, response, ...restArgs) => {
 		if (error instanceof StructError) {
 			throw createError(400, error.message, error)
 		}
+
+		request.query = searchParameters
 	}
 
 	return handler(request, response, ...restArgs)

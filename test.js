@@ -18,14 +18,36 @@ const Name = object({
 	first: string()
 })
 
-const handler = async (request_, response) => {
-	const body = await micro.json(request_)
+const handler = async (request, response) => {
+	const body = await micro.json(request)
 	micro.send(response, 200, body)
+}
+
+const handlerFrom = prop => async (request, response) => {
+	micro.send(response, 200, request[prop])
 }
 
 test('response on valid body', async t => {
 	const validate = microSuperstruct(Article)
 	const router = micro(validate(handler))
+	const url = await listen(router)
+
+	const data = {
+		id: 4,
+		title: 'Unicorn Article',
+		tags: ['some_tag'],
+		author: {
+			id: 1
+		}
+	}
+
+	const response = await got.post(url, {json: data}).json()
+	t.deepEqual(response, data)
+})
+
+test('populates `body` property on request', async t => {
+	const validate = microSuperstruct(Article)
+	const router = micro(validate(handlerFrom('body')))
 	const url = await listen(router)
 
 	const data = {
@@ -50,6 +72,17 @@ test('response on valid query string', async t => {
 
 	const response = await got.post(`${url}?first=Brandon`, {json: data}).json()
 	t.deepEqual(response, data)
+})
+
+test('populates `query` property on request', async t => {
+	const validate = microSuperstruct({query: Name})
+	const router = micro(validate(handlerFrom('query')))
+	const url = await listen(router)
+
+	const data = {hello: 'world'}
+
+	const response = await got.post(`${url}?first=Brandon`, {json: data}).json()
+	t.deepEqual(response, {first: 'Brandon'})
 })
 
 test('response on valid body & query string', async t => {
